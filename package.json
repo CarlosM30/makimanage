@@ -2,7 +2,7 @@
   "name": "makimanage",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://CarlosM30.github.io/makimanage",
+  "homepage": "https://carlosm30.github.io/makimanage",
   "dependencies": {
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
