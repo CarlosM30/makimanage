@@ -7,7 +7,7 @@ import ManualInv from './ManualInv';
 
 function App(){
   return (
-    <Router basename="/">
+    <Router basename="/makimanage">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path='/login' element={<Login />} />
