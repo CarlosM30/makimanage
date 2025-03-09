@@ -35,7 +35,7 @@ const Register = () => {
 
       if (data.status === 'success') {
         setMessage('Usuario registrado con éxito');
-        setTimeout(() => navigate('/login'), 2000); // Redirigir después de 2 segundos
+        setTimeout(() => navigate('/login'), 2000);
       } else {
         setMessage(data.message);
       }
