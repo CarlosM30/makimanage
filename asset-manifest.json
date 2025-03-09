@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/makimanage/static/css/main.5dfec799.css",
+    "main.js": "/makimanage/static/js/main.c0e6589f.js",
+    "static/js/453.9d4c8fc8.chunk.js": "/makimanage/static/js/453.9d4c8fc8.chunk.js",
+    "static/media/FondoL.jpg": "/makimanage/static/media/FondoL.b2595f4f29bfd439d3b9.jpg",
+    "index.html": "/makimanage/index.html",
+    "main.5dfec799.css.map": "/makimanage/static/css/main.5dfec799.css.map",
+    "main.c0e6589f.js.map": "/makimanage/static/js/main.c0e6589f.js.map",
+    "453.9d4c8fc8.chunk.js.map": "/makimanage/static/js/453.9d4c8fc8.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5dfec799.css",
+    "static/js/main.c0e6589f.js"
+  ]
+}
