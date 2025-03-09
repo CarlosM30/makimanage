@@ -1,0 +1,109 @@
+.bodyContainer {
+    font-family: 'Arial', sans-serif;
+    background-image: url('C:/Users/wolfp/Pictures/Proyecto/FondoL.jpg'); 
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.loginContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.loginCard {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 350px;
+    text-align: center;
+    color: #fff;
+}
+
+.avatar img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 3px solid #ffcc00;
+    margin-bottom: 15px;
+}
+
+.loginCard h2 {
+    color: #ffcc00;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.inputContainer {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.inputContainer label {
+    display: block;
+    font-size: 14px;
+    color: #ffcc00;
+    margin-bottom: 5px;
+}
+
+.inputContainer input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    outline: none;
+    background-color: #333;
+    color: #fff;
+}
+
+.inputContainer input:focus {
+    border: 2px solid #ffcc00;
+}
+
+.loginBtn {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    color: white;
+    background-color: #FC60BC;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 10px;
+}
+
+.loginBtn:hover {
+    background-color: #ffcc00;
+}
+
+.registerBtn {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    color: white;
+    background-color: #FC60BC;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.registerBtn:hover {
+    background-color: #ffcc00;
+}
+
+.message {
+    margin-top: 20px;
+    color: #ff6666;
+    font-size: 16px;
+}
