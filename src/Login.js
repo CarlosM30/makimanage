@@ -42,13 +42,13 @@ const Login = () => {
       setErrorMessage('Error en la conexión con el servidor.');
     });
   };
-
+//Hola
   return (
     <div className={styles.bodyContainer}>
       <div className={styles.loginContainer}>
         <div className={styles.loginCard}>
           <div className={styles.avatar}>
-          <img src="img/avatar.jpg" alt="Avatar" />
+          <img src="http://localhost/sushidorado-backend/avatar.jpg" alt="Avatar" />
           </div>
           <h2>Iniciar Sesión</h2>
           <form onSubmit={handleLogin}>
