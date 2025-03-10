@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styles from './Login.module.css';
 import { useNavigate } from 'react-router-dom';
 
+
 const Login = () => {
 
   const navigate = useNavigate();
@@ -47,7 +48,7 @@ const Login = () => {
       <div className={styles.loginContainer}>
         <div className={styles.loginCard}>
           <div className={styles.avatar}>
-            <img src="http://localhost/sushidorado-backend/avatar.jpg" alt="Avatar" />
+          <img src="img/avatar.jpg" alt="Avatar" />
           </div>
           <h2>Iniciar Sesión</h2>
           <form onSubmit={handleLogin}>
