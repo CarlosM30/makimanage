@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import styles from './Login.module.css';
 import { useNavigate } from 'react-router-dom';
 
-
 const Login = () => {
 
   const navigate = useNavigate();
@@ -13,7 +12,7 @@ const Login = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    fetch('http://localhost/sushidorado-backend/login.php', {
+    fetch('http://localhost/su/login.php', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -30,7 +29,11 @@ const Login = () => {
           navigate('/inventory');
         } else if (data.Especialidad === 'Encargado de Inventario') {
           navigate('/manualinv');
-        } else {
+        } else if (data.Especialidad === 'Gerente'){
+            navigate('/gerentes');
+        } else if (data.Especialidad === 'ADM'){
+          navigate('/usuarios');
+        }else {
           setErrorMessage('Rol no reconocido');
         }
       } else {
@@ -42,13 +45,12 @@ const Login = () => {
       setErrorMessage('Error en la conexión con el servidor.');
     });
   };
-//Hola
   return (
     <div className={styles.bodyContainer}>
       <div className={styles.loginContainer}>
         <div className={styles.loginCard}>
           <div className={styles.avatar}>
-          <img src="http://localhost/sushidorado-backend/avatar.jpg" alt="Avatar" />
+          <img src="http://localhost/su/Avatar.png" alt="Avatar" />
           </div>
           <h2>Iniciar Sesión</h2>
           <form onSubmit={handleLogin}>
@@ -69,14 +71,16 @@ const Login = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 required 
               />
-              <label>
+              <div className={styles.showPasswordContainer}>
+              <label>Mostrar</label>
+              <label>Contraseña</label>
                 <input 
                   type="checkbox" 
                   checked={showPassword}
                   onChange={() => setShowPassword(!showPassword)}
                 />
-                Mostrar Contraseña
-              </label>
+                
+              </div>
             </div>
             <button className={styles.loginBtn} type="submit">INGRESAR</button>
             <button className={styles.registerBtn} type="button" onClick={() => navigate('/register')}>REGISTRAR</button>

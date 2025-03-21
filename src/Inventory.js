@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Inventory.module.css';
-import { useNavigate } from 'react-router-dom';
 
 const Inventory = () => {
-  const navigate = useNavigate();
   const [inventory, setInventory] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
   const [updatedProduct, setUpdatedProduct] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(''); // Estado para la categoría seleccionada
 
   useEffect(() => {
     fetch('http://localhost/sushidorado-backend/get_inventario.php', {
@@ -29,7 +28,6 @@ const Inventory = () => {
       });
   }, []);
 
-  // Función para actualizar la cantidad del producto
   const updateProductQuantity = (producto, cantidadRestar) => {
     const newQuantity = producto.Cantidad - cantidadRestar;
   
@@ -45,7 +43,7 @@ const Inventory = () => {
       },
       body: JSON.stringify({
         producto: producto.Producto,
-        cantidad: cantidadRestar, // Aquí solo envías la cantidad a restar, no la nueva cantidad
+        cantidad: cantidadRestar,
       })
     })
       .then(response => response.json())
@@ -64,49 +62,65 @@ const Inventory = () => {
         setErrorMessage('Error al actualizar la cantidad del producto');
       });
   };
-  
+
+  // Agrupar productos por categoría (Tipo)
+  const groupedInventory = inventory.reduce((acc, item) => {
+    if (!acc[item.Tipo]) {
+      acc[item.Tipo] = [];
+    }
+    acc[item.Tipo].push(item);
+    return acc;
+  }, {});
 
   return (
     <div className={styles.bodyContainer}>
-      <div className={styles.inventoryContainer}>
-        <h2>Inventario</h2>
-        <table className={styles.inventoryTable}>
-          <thead>
-            <tr>
-              <th>Tipo</th>
-              <th>Producto</th>
-              <th>Unidad</th>
-              <th>Cantidad</th>
-              <th>Acción</th>
-            </tr>
-          </thead>
-          <tbody>
-            {inventory && inventory.length > 0 ? (
-              inventory.map((item, index) => (
-                <tr key={index}>
-                  <td>{item.Tipo}</td>
+      <h2 className={styles.title}>Registro</h2>
+
+      {/* Dropdown para seleccionar la categoría */}
+      <label htmlFor="categorySelect">Selecciona una categoría:</label>
+      <select
+        id="categorySelect"
+        onChange={(e) => setSelectedCategory(e.target.value)}
+      >
+        <option value="">-- Seleccionar --</option>
+        {Object.keys(groupedInventory).map((categoria, index) => (
+          <option key={index} value={categoria}>{categoria}</option>
+        ))}
+      </select>
+
+      {/* Mostrar solo la tabla de la categoría seleccionada */}
+      {selectedCategory && (
+        <div className={styles.inventoryContainer}>
+          <h3>{selectedCategory}</h3>
+          <table className={styles.inventoryTable}>
+            <thead>
+              <tr>
+                <th>Producto</th>
+                <th>Unidad</th>
+                <th>Cantidad</th>
+                <th>Acción</th>
+              </tr>
+            </thead>
+            <tbody>
+              {groupedInventory[selectedCategory].map((item, i) => (
+                <tr key={i}>
                   <td>{item.Producto}</td>
                   <td>{item.Unidad}</td>
                   <td>{item.Cantidad}</td>
                   <td>
-                    <button
-                      onClick={() => updateProductQuantity(item, 1)}
-                    >
+                    <button onClick={() => updateProductQuantity(item, 1)}>
                       Usar 1
                     </button>
                   </td>
                 </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="5">No hay productos registrados.</td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-        {errorMessage && <p className={styles.message}>{errorMessage}</p>}
-        {updatedProduct && <p>Producto actualizado: {updatedProduct}</p>}
-      </div>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {errorMessage && <p className={styles.message}>{errorMessage}</p>}
+      {updatedProduct && <p>Producto actualizado: {updatedProduct}</p>}
     </div>
   );
 };

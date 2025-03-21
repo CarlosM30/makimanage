@@ -19,7 +19,7 @@ const Register = () => {
     }
 
     try {
-      const response = await fetch('http://localhost/sushidorado-backend/register.php', {
+      const response = await fetch('http://localhost/su/register.php', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -48,7 +48,7 @@ const Register = () => {
     <div className={styles.bodyContainer}>
       <div className={styles.registerContainer}>
         <div className={styles.registerCard}>
-          <h2>Registro</h2>
+          <h1 className={styles.title}>Registro</h1>
           <form onSubmit={handleRegister}>
             <div className={styles.inputContainer}>
               <label>Usuario</label>
@@ -67,14 +67,16 @@ const Register = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 required 
               />
-              <label>
+              <div className={styles.showPasswordContainer}>
+              <label>Mostrar</label>
+              <label>Contraseña</label>
                 <input 
                   type="checkbox" 
                   checked={showPassword}
                   onChange={() => setShowPassword(!showPassword)}
                 />
-                Mostrar Contraseña
-              </label>
+                              
+              </div>
             </div>
             <div className={styles.inputContainer}>
               <label>Especialidad</label>

@@ -1,6 +1,6 @@
 .bodyContainer {
     font-family: 'Arial', sans-serif;
-    background-image: url('C:/Users/wolfp/Pictures/Proyecto/FondoL.jpg'); 
+    background-image: url('C:/Users/wolfp/Pictures/Proyecto/FondoMK.jpg'); 
     background-size: cover;
     background-position: center;
     display: flex;
@@ -10,29 +10,16 @@
     margin: 0;
 }
 
+
 .registerContainer {
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(218, 216, 217, 0.7);
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
     width: 100%;
     max-width: 350px;
     text-align: center;
-    color: #fff;
-}
-
-.avatar img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    border: 3px solid #ffcc00;
-    margin-bottom: 15px;
-}
-
-.title {
-    font-size: 24px;
-    color: #ffcc00;
-    margin-bottom: 20px;
+    color: #000;
 }
 
 .inputContainer {
@@ -43,7 +30,7 @@
 .inputContainer label {
     display: block;
     font-size: 14px;
-    color: #ffcc00;
+    color: #000;
     margin-bottom: 5px;
 }
 
@@ -61,7 +48,7 @@
 
 .inputContainer input:focus,
 .inputContainer select:focus {
-    border: 2px solid #ffcc00;
+    border: 2px solid #262523;
 }
 
 .inputContainer select {
@@ -69,7 +56,7 @@
     cursor: pointer;
     background-color: #444;
     color: #fff;
-    border: 1px solid #ffcc00;
+    border: 1px solid #262523;
 }
 
 .inputContainer select:hover {
@@ -82,7 +69,7 @@
     padding: 12px;
     font-size: 16px;
     color: white;
-    background-color: #FC60BC;
+    background-color: #D92579;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -92,11 +79,17 @@
 
 .registerContainer .registerBtn:hover,
 .registerContainer .loginBtn:hover {
-    background-color: #ffcc00;
+    background-color: #400C24;
 }
 
 .message {
     margin-top: 20px;
     color: #ff6666;
     font-size: 16px;
+}
+
+.showPasswordContainer {
+    display: flex;
+    align-items: center;
+    gap: 2px;
 }

@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import styles from './ManualInv.module.css'; 
-import { useNavigate } from 'react-router-dom';
+//import { useNavigate } from 'react-router-dom';
 
 const UpdateInventory = () => {
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
   const [inventory, setInventory] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [newQuantity, setNewQuantity] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
-  const [updatedProduct, setUpdatedProduct] = useState(null);
+  const [updateinventario, setUpdatedProduct] = useState(null);
 
   useEffect(() => {
     fetch('http://localhost/sushidorado-backend/get_inventario.php', {
@@ -57,7 +57,7 @@ const UpdateInventory = () => {
             setInventory(inventory.map(item =>
               item.Producto === producto.Producto ? { ...item, Cantidad: newQuantity } : item
             ));
-            setSuccessMessage(`La cantidad del producto ${producto.Producto} ha sido actualizada a ${newQuantity}`);
+            setSuccessMessage(`Se ha encargado ${newQuantity} del producto ${producto.Producto}`);
             setUpdatedProduct(producto.Producto);
           } else {
             setErrorMessage('Error al actualizar la cantidad del producto');
@@ -77,7 +77,7 @@ const UpdateInventory = () => {
       <div className={styles.inventoryContainer}>
         <h2>Actualizar Inventario</h2>
 
-        <div>
+        <div className={styles.inputContainer}>
           <label htmlFor="product">Seleccionar Producto:</label>
           <select
             id="product"
@@ -93,7 +93,7 @@ const UpdateInventory = () => {
           </select>
         </div>
 
-        <div>
+        <div className={styles.inputContainer}>
           <label htmlFor="newQuantity">Nueva Cantidad:</label>
           <input
             type="number"
