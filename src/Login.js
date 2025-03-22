@@ -12,7 +12,7 @@ const Login = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    fetch('http://localhost/su/login.php', {
+    fetch('http://localhost/MakiManage/login.php', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -50,7 +50,7 @@ const Login = () => {
       <div className={styles.loginContainer}>
         <div className={styles.loginCard}>
           <div className={styles.avatar}>
-          <img src="http://localhost/su/Avatar.png" alt="Avatar" />
+          <img src="http://localhost/MakiManage/Avatar.png" alt="Avatar" />
           </div>
           <h2>Iniciar Sesión</h2>
           <form onSubmit={handleLogin}>

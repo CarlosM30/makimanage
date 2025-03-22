@@ -9,7 +9,7 @@ const Home = () => {
         <div className={styles.bodyContainer}> 
             <div className={styles.homeContainer}>
                 <div className={styles.avatar}>
-                <img src="http://localhost/sushidorado-backend/MKSF.jpg" alt="Avatar" /> {/* Logotipo del Restaurante */}
+                <img src="http://localhost/MakiManage/MKSF.png" alt="Avatar" /> {/* Logotipo del Restaurante */}
                 </div>
                 <h1 className={styles.title}>MAKIMANAGE</h1>
                 <h2 className={styles.subtitle}>BIENVENIDO</h2>
