@@ -8,7 +8,7 @@ const Inventory = () => {
   const [selectedCategory, setSelectedCategory] = useState(''); // Estado para la categoría seleccionada
 
   useEffect(() => {
-    fetch('http://localhost/sushidorado-backend/get_inventario.php', {
+    fetch('http://localhost/MakiManage/get_inventario.php', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -36,7 +36,7 @@ const Inventory = () => {
       return;
     }
   
-    fetch('http://localhost/sushidorado-backend/update_inventario.php', {
+    fetch('http://localhost/MakiManage/update_inventario.php', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
