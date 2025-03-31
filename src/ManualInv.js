@@ -3,7 +3,6 @@ import styles from './ManualInv.module.css';
 //import { useNavigate } from 'react-router-dom';
 
 const UpdateInventory = () => {
-  //const navigate = useNavigate();
   const [inventory, setInventory] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [newQuantity, setNewQuantity] = useState('');
