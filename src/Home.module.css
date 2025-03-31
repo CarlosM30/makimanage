@@ -1,6 +1,6 @@
 .bodyContainer {
     font-family: 'Arial';
-    background-image: url('C:/Users/wolfp/Pictures/Proyecto/FondoMK.jpg'); 
+    background-image: url('./imagenes/FondoMKJ.jpg');
     background-size: cover;
     background-position: center;
     margin: 0;
@@ -20,6 +20,13 @@
     max-width: 350px;
     text-align: center;
     color: #000;
+    transition: all 0.3s ease
+}
+
+.homeContainer:hover {
+    transform: scale(1.25); /* Escala un 5% al hacer hover */
+    background: rgba(218, 216, 217, 0.9); /* Fondo más opaco */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Sombra más pronunciada */
 }
 
 .avatar img {

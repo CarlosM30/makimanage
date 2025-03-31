@@ -1,9 +1,9 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './Home';
-import Login from './Login';
-import Register from './Register';
-import Inventory from './Inventory';
-import ManualInv from './ManualInv';
+import Login from './Login/Login';
+import Register from './Register/Register';
+import Inventory from './Inventory/Inventory';
+import ManualInv from './ManualInv/ManualInv';
 import GerenteS from './GerenteS';
 import Usuarios from './Usuarios';
 

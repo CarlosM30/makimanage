@@ -1,6 +1,6 @@
 .bodyContainer {
     font-family: 'Arial', sans-serif;
-    background-image: url('C:/Users/wolfp/Pictures/Proyecto/FondoMK.jpg');
+    background-image: url('../imagenes/FondoMKJ.jpg');
     background-size: cover;
     background-position: center;
     display: flex;

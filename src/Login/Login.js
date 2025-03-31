@@ -1,3 +1,4 @@
+import avatar from '../imagenes/Avatar.png';
 import React, { useState } from 'react';
 import styles from './Login.module.css';
 import { useNavigate } from 'react-router-dom';
@@ -42,31 +43,31 @@ const Login = () => {
       },
       body: JSON.stringify({ username, password }),
     })
-    .then(response => response.json())
-    .then(data => {
-      if (data.status === 'success') {
-        alert(`¡Bienvenido! Especialidad: ${data.Especialidad}, Estado: ${data.Estado}`);
+      .then(response => response.json())
+      .then(data => {
+        if (data.status === 'success') {
+          alert(`¡Bienvenido! Especialidad: ${data.Especialidad}, Estado: ${data.Estado}`);
 
-        //Redirige al usuario según su rol
-        if (data.Especialidad === 'Chef') {
-          navigate('/inventory');
-        } else if (data.Especialidad === 'Encargado de Inventario') {
-          navigate('/manualinv');
-        } else if (data.Especialidad === 'Gerente'){
+          //Redirige al usuario según su rol
+          if (data.Especialidad === 'Chef') {
+            navigate('/inventory');
+          } else if (data.Especialidad === 'Encargado de Inventario') {
+            navigate('/manualinv');
+          } else if (data.Especialidad === 'Gerente') {
             navigate('/gerentes');
-        } else if (data.Especialidad === 'ADM'){
-          navigate('/usuarios');
-        }else {
-          setErrorMessage('Rol no reconocido');
+          } else if (data.Especialidad === 'ADM') {
+            navigate('/usuarios');
+          } else {
+            setErrorMessage('Rol no reconocido');
+          }
+        } else {
+          setErrorMessage(data.message);
         }
-      } else {
-        setErrorMessage(data.message);
-      }
-    })
-    .catch(error => {
-      console.error('Error en la conexión:', error);
-      setErrorMessage('Error en la conexión con el servidor.');
-    });
+      })
+      .catch(error => {
+        console.error('Error en la conexión:', error);
+        setErrorMessage('Error en la conexión con el servidor.');
+      });
   };
 
   return (
@@ -74,7 +75,7 @@ const Login = () => {
       <div className={styles.loginContainer}>
         <div className={styles.loginCard}>
           <div className={styles.avatar}>
-          <img src="http://localhost/MakiManage/Avatar.png" alt="Avatar" />
+            <img src={avatar} className="App-logo" alt="Avatar" />
           </div>
 
           {/* Titulo del formulario */}
@@ -85,30 +86,30 @@ const Login = () => {
             {/* Campo de nombre de usuario */}
             <div className={styles.inputContainer}>
               <label>Usuario</label>
-              <input 
-                type="text" 
-                value={username} 
+              <input
+                type="text"
+                value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                required 
+                required
               />
             </div>
 
             {/* Campo de contraseña */}
             <div className={styles.inputContainer}>
               <label>Contraseña</label>
-              <input 
+              <input
                 type={showPassword ? 'text' : 'password'}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                required 
+                required
               />
 
               {/* Checkbox para mostras/ocultar la contraseña */}
               <div className={styles.showPasswordContainer}>
                 <label>Mostrar</label>
                 <label>Contraseña</label>
-                <input 
-                  type="checkbox" 
+                <input
+                  type="checkbox"
                   checked={showPassword}
                   onChange={() => setShowPassword(!showPassword)}
                 />
@@ -120,7 +121,7 @@ const Login = () => {
 
             {/* Botón de registro */}
             <button className={styles.registerBtn} type="button" onClick={() => navigate('/register')}>REGISTRAR</button>
-            
+
             {/* Mensaje de error */}
             {errorMessage && <p className={styles.message}>{errorMessage}</p>}
           </form>

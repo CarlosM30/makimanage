@@ -1,13 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Inventory.module.css';
 
+/**
+ * Componente para visualizar el inventario
+ * 
+ * Este componente perimite visualizar el inventario por categorias que el
+ * usuario eliga, se muestra el nombre del producto, unidad de media y cantidad
+ * 
+ * @returns {JSX.Element} El Evento de visualizar el inventario
+ */
 const Inventory = () => {
-  const [inventory, setInventory] = useState([]);
-  const [errorMessage, setErrorMessage] = useState('');
-  const [updatedProduct, setUpdatedProduct] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState(''); // Estado para la categoría seleccionada
+  const [inventory, setInventory] = useState([]); // Almacena los datos del inventario
+  const [errorMessage, setErrorMessage] = useState(''); // Almacena mensaje de error
+  const [updatedProduct, setUpdatedProduct] = useState(null); // Estado para almacenar temporalmente un producto que ha sido modificado
+  const [selectedCategory, setSelectedCategory] = useState(''); // Estado para almacenar la categoría seleccionada
 
   useEffect(() => {
+
+    // Solicitud al servidor
     fetch('http://localhost/MakiManage/get_inventario.php', {
       method: 'GET',
       headers: {

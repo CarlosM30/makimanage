@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import styles from './ManualInv.module.css'; 
-//import { useNavigate } from 'react-router-dom';
+import styles from './ManualInv.module.css'; // 
 
 const UpdateInventory = () => {
   const [inventory, setInventory] = useState([]);
@@ -11,7 +10,7 @@ const UpdateInventory = () => {
   const [updateinventario, setUpdatedProduct] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost/sushidorado-backend/get_inventario.php', {
+    fetch('http://localhost/MakiManage/get_inventario.php', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -40,7 +39,7 @@ const UpdateInventory = () => {
     const producto = inventory.find(item => item.Producto === selectedProduct);
 
     if (producto) {
-      fetch('http://localhost/sushidorado-backend/update_inventario_manual.php', {
+      fetch('http://localhost/MakiManage/update_inventario_manual.php', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
