@@ -7,7 +7,7 @@ import ManualInv from './ManualInv/ManualInv';
 import GerenteS from './GerenteS';
 import Usuarios from './Usuarios';
 
-function App(){
+function App() {
   return (
     <Router basename="/makimanage">
       <Routes>
