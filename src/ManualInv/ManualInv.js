@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import styles from './ManualInv.module.css'; // 
+import styles from './ManualInv.module.css';
 
 const UpdateInventory = () => {
   const [inventory, setInventory] = useState([]);
@@ -7,16 +7,10 @@ const UpdateInventory = () => {
   const [newQuantity, setNewQuantity] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
-  const [updateinventario, setUpdatedProduct] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost/MakiManage/get_inventario.php', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      }
-    })
-      .then(response => response.json())
+    fetch('http://localhost/MakiManage/get_inventario.php')
+      .then(res => res.json())
       .then(data => {
         if (data.status === 'success' && Array.isArray(data.productos)) {
           setInventory(data.productos);
@@ -24,49 +18,54 @@ const UpdateInventory = () => {
           setErrorMessage(data.message || 'No se pudieron obtener los productos');
         }
       })
-      .catch(error => {
-        console.error('Error en la conexión:', error);
+      .catch(err => {
+        console.error('Error al cargar inventario:', err);
         setErrorMessage('Error en la conexión con el servidor.');
       });
   }, []);
 
-  const updateManualQuantity = () => {
+  const updateManualQuantity = async () => {
+    setErrorMessage('');
+    setSuccessMessage('');
+
     if (!selectedProduct || newQuantity === '') {
-      setErrorMessage('Debe seleccionar un producto y proporcionar una cantidad válida.');
+      setErrorMessage('Seleccione un producto y una nueva cantidad válida.');
       return;
     }
 
     const producto = inventory.find(item => item.Producto === selectedProduct);
+    if (!producto) {
+      setErrorMessage('Producto no encontrado en el inventario.');
+      return;
+    }
 
-    if (producto) {
-      fetch('http://localhost/MakiManage/update_inventario_manual.php', {
+    try {
+      const res = await fetch('http://localhost/MakiManage/update_inventario_manual.php', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           producto: producto.Producto,
-          cantidad: newQuantity,
+          categoria: producto.categoria, // 🟢 NECESARIO para saber qué tabla actualizar
+          cantidad: parseInt(newQuantity)
         })
-      })
-        .then(response => response.json())
-        .then(data => {
-          if (data.status === 'success') {
-            setInventory(inventory.map(item =>
-              item.Producto === producto.Producto ? { ...item, Cantidad: newQuantity } : item
-            ));
-            setSuccessMessage(`Se ha encargado ${newQuantity} del producto ${producto.Producto}`);
-            setUpdatedProduct(producto.Producto);
-          } else {
-            setErrorMessage('Error al actualizar la cantidad del producto');
-          }
-        })
-        .catch(error => {
-          console.error('Error al actualizar:', error);
-          setErrorMessage('Error al actualizar la cantidad del producto');
-        });
-    } else {
-      setErrorMessage('Producto no encontrado en el inventario');
+      });
+
+      const data = await res.json();
+      if (data.status === 'success') {
+        setInventory(inventory.map(item =>
+          item.Producto === producto.Producto && item.categoria === producto.categoria
+            ? { ...item, Cantidad: newQuantity }
+            : item
+        ));
+        setSuccessMessage(`Cantidad actualizada correctamente para ${producto.Producto}`);
+        setNewQuantity('');
+        setSelectedProduct('');
+      } else {
+        setErrorMessage(data.message || 'Error al actualizar el producto');
+      }
+    } catch (err) {
+      console.error('Error al actualizar:', err);
+      setErrorMessage('Error al conectar con el servidor');
     }
   };
 
@@ -76,29 +75,24 @@ const UpdateInventory = () => {
         <h2>Actualizar Inventario</h2>
 
         <div className={styles.inputContainer}>
-          <label htmlFor="product">Seleccionar Producto:</label>
-          <select
-            id="product"
-            value={selectedProduct || ''}
-            onChange={(e) => setSelectedProduct(e.target.value)}
-          >
-            <option value="">Seleccione un producto</option>
-            {inventory.map((item, index) => (
-              <option key={index} value={item.Producto}>
-                {item.Producto}
+          <label>Seleccionar Producto:</label>
+          <select value={selectedProduct || ''} onChange={e => setSelectedProduct(e.target.value)}>
+            <option value="">-- Selecciona un producto --</option>
+            {inventory.map((item, idx) => (
+              <option key={idx} value={item.Producto}>
+                {item.Producto} ({item.categoria})
               </option>
             ))}
           </select>
         </div>
 
         <div className={styles.inputContainer}>
-          <label htmlFor="newQuantity">Nueva Cantidad:</label>
+          <label>Nueva Cantidad:</label>
           <input
             type="number"
-            id="newQuantity"
-            value={newQuantity}
-            onChange={(e) => setNewQuantity(e.target.value)}
             min="0"
+            value={newQuantity}
+            onChange={e => setNewQuantity(e.target.value)}
           />
         </div>
 

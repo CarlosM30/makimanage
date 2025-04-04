@@ -6,6 +6,8 @@ import Inventory from './Inventory/Inventory';
 import ManualInv from './ManualInv/ManualInv';
 import GerenteS from './GerenteS';
 import Usuarios from './Usuarios';
+import AddProduct from './AddProduct/AddProduct';
+import AddTable from './AddTable/AddTable';
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
         <Route path='/manualinv' element={<ManualInv />} />
         <Route path='/gerentes' element={<GerenteS />} />
         <Route path='/usuarios' element={<Usuarios />} />
+        <Route path='/addproduct' element={<AddProduct />} />
+        <Route path='/addtable' element={<AddTable />} />
         <Route path='*' element={<h2>Pagina no encontrada</h2>} />
       </Routes>
     </Router>

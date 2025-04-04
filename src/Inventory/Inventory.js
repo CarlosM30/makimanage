@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import styles from './Inventory.module.css';
 
 const Inventory = () => {
@@ -6,6 +7,7 @@ const Inventory = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [updatedProduct, setUpdatedProduct] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState('');
+  const location = useLocation(); // <- para detectar regreso a esta página
 
   useEffect(() => {
     fetch('http://localhost/MakiManage/get_inventario.php', {
@@ -26,7 +28,7 @@ const Inventory = () => {
         console.error('Error en la conexión:', error);
         setErrorMessage('Error en la conexión con el servidor.');
       });
-  }, []);
+  }, [location]); // <- se vuelve a ejecutar cuando cambia la ruta
 
   const categories = [...new Set(inventory.map(item => item.categoria))];
 
@@ -51,6 +53,8 @@ const Inventory = () => {
     })
       .then(response => response.json())
       .then(data => {
+        console.log("Respuesta del servidor:", data);
+
         if (data.status === 'success') {
           setInventory(inventory.map(item =>
             item.Producto === producto.Producto && item.categoria === producto.categoria
@@ -59,7 +63,7 @@ const Inventory = () => {
           ));
           setUpdatedProduct(producto.Producto);
         } else {
-          setErrorMessage('Error al actualizar el producto');
+          setErrorMessage(data.message || 'Error al actualizar el producto');
         }
       })
       .catch(error => {
@@ -68,10 +72,7 @@ const Inventory = () => {
       });
   };
 
-  // Filtrar productos por categoría seleccionada
   const filteredProducts = inventory.filter(item => item.categoria === selectedCategory);
-
-  // Verificar si la categoría seleccionada tiene productos con fecha de caducidad
   const categoryHasExpiryDate = selectedCategory &&
     filteredProducts.some(item => item.Fecha_Caducidad !== null);
 
