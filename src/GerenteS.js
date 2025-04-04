@@ -11,7 +11,9 @@ const GerenteS = () => {
                 <h1 className={styles.title}>BIENVENIDO</h1>
                 <h2 className={styles.subtitle}>Seleccione</h2>
                 <button className={styles.loginBtn} onClick={() => navigate('/inventory')}>INVENTARIO</button>
-                <button className={styles.registerBtn} onClick={() => navigate('/manualinv')}>PEDIDO</button>
+                <button className={styles.registerBtn} onClick={() => navigate('/addproduct')}>PEDIDO</button>
+                <button className={styles.registerBtn} onClick={() => navigate('/manualinv')}>AJUSTE INVENTARIO</button>
+                <button className={styles.registerBtn} onClick={() => navigate('/addtable')}>AGREGAR CATEGORIA</button>
             </div>
         </div>
     );

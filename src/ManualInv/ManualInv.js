@@ -72,7 +72,7 @@ const UpdateInventory = () => {
   return (
     <div className={styles.bodyContainer}>
       <div className={styles.inventoryContainer}>
-        <h2>Actualizar Inventario</h2>
+        <h2>Ajuste de Inventario</h2>
 
         <div className={styles.inputContainer}>
           <label>Seleccionar Producto:</label>

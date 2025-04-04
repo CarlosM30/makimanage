@@ -78,7 +78,7 @@ const Inventory = () => {
 
   return (
     <div className={styles.bodyContainer}>
-      <h2 className={styles.title}>Registro</h2>
+      <h2 className={styles.title}>Inventario</h2>
 
       <label htmlFor="categorySelect">Selecciona una categoría:</label>
       <select

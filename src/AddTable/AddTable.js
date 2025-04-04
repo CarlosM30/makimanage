@@ -39,7 +39,7 @@ const AddTable = () => {
     return (
         <div className={styles.bodyContainer}>
             <div className={styles.formContainer}>
-                <h2 className={styles.title}>Crear Nueva Tabla</h2>
+                <h2 className={styles.title}>Nueva Categoría</h2>
                 <form className={styles.form} onSubmit={handleSubmit}>
                     <div className={styles.inputContainer}>
                         <label className={styles.label}>Nombre de la Tabla:</label>
