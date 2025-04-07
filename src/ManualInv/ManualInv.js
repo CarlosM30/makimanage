@@ -45,7 +45,7 @@ const UpdateInventory = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           producto: producto.Producto,
-          categoria: producto.categoria, // 🟢 NECESARIO para saber qué tabla actualizar
+          categoria: producto.categoria,
           cantidad: parseInt(newQuantity)
         })
       });

@@ -2,32 +2,34 @@ import avatar from '../imagenes/Avatar.png';
 import React, { useState } from 'react';
 import styles from './Login.module.css';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../AuthContext';
 
 /**
  * Componente de inicio de sesión.
  * 
  * Este componente permite a los usuarios ingresar su nombre de usuario y contraseña 
- * para auntenticarse en la aplicación. Dependiendo del rol del usuario, se redirige
+ * para autentificarse en la aplicación. Dependiendo del rol del usuario, se redirige
  * a una página especifica (Chef, Encargado de Inventario, Gerente)
  * 
  * @component 
- * @returns {JSX.Element} El formulario de inicion de sessión.
+ * @returns {JSX.Element} El formulario de inicio de sesión.
  */
 const Login = () => {
 
   const navigate = useNavigate();
+  const { login } = useAuth(); //Hook del contexto de autenticación
 
-  //Estados del componente
+  // Estados del componente
   const [username, setUsername] = useState(''); // Almacena el nombre de usuario
   const [password, setPassword] = useState(''); // Almacena la contraseña
   const [showPassword, setShowPassword] = useState(false); // Controla si se muestra la contraseña
-  const [errorMessage, setErrorMessage] = useState(''); // Almacena mensajes de Error
+  const [errorMessage, setErrorMessage] = useState(''); // Almacena mensajes de error
 
   /**
-   * Maneja el envío del formulario de inición de sessión
+   * Maneja el envío del formulario de inicio de sesión
    * 
-   * Realiza una solicitud HTTP POST al servidor para autentificar al usuario.
-   * Si la auntentificación es exitosa envia al usuario a una pagina especifica
+   * Realiza una solicitud HTTP POST al servidor para autenticar al usuario.
+   * Si la autenticación es exitosa envía al usuario a una página específica
    * según su rol. Si falla, se muestra un mensaje de error.
    * 
    * @param {Event} e - El evento de envío de formulario. 
@@ -35,7 +37,7 @@ const Login = () => {
   const handleLogin = (e) => {
     e.preventDefault();
 
-    //Realiza la solicitud al servidor
+    // Realiza la solicitud al servidor
     fetch('http://localhost/MakiManage/login.php', {
       method: 'POST',
       headers: {
@@ -46,17 +48,19 @@ const Login = () => {
       .then(response => response.json())
       .then(data => {
         if (data.status === 'success') {
+          login(); // 👉 Establece sesión como autenticada en el contexto
+
           alert(`¡Bienvenido! Especialidad: ${data.Especialidad}, Estado: ${data.Estado}`);
 
-          //Redirige al usuario según su rol
+          // Redirige al usuario según su rol con reemplazo en el historial
           if (data.Especialidad === 'Chef') {
-            navigate('/inventory');
+            navigate('/inventory', { replace: true });
           } else if (data.Especialidad === 'Encargado de Inventario') {
-            navigate('/manualinv');
+            navigate('/gerentes', { replace: true });
           } else if (data.Especialidad === 'Gerente') {
-            navigate('/gerentes');
+            navigate('/gerentes', { replace: true });
           } else if (data.Especialidad === 'ADM') {
-            navigate('/usuarios');
+            navigate('/usuarios', { replace: true });
           } else {
             setErrorMessage('Rol no reconocido');
           }
@@ -78,7 +82,7 @@ const Login = () => {
             <img src={avatar} className="App-logo" alt="Avatar" />
           </div>
 
-          {/* Titulo del formulario */}
+          {/* Título del formulario */}
           <h2>Iniciar Sesión</h2>
 
           {/* Formulario de inicio de sesión */}
@@ -104,7 +108,7 @@ const Login = () => {
                 required
               />
 
-              {/* Checkbox para mostras/ocultar la contraseña */}
+              {/* Checkbox para mostrar/ocultar la contraseña */}
               <div className={styles.showPasswordContainer}>
                 <label>Mostrar</label>
                 <label>Contraseña</label>
@@ -120,7 +124,13 @@ const Login = () => {
             <button className={styles.loginBtn} type="submit">INGRESAR</button>
 
             {/* Botón de registro */}
-            <button className={styles.registerBtn} type="button" onClick={() => navigate('/register')}>REGISTRAR</button>
+            <button
+              className={styles.registerBtn}
+              type="button"
+              onClick={() => navigate('/register')}
+            >
+              REGISTRAR
+            </button>
 
             {/* Mensaje de error */}
             {errorMessage && <p className={styles.message}>{errorMessage}</p>}
