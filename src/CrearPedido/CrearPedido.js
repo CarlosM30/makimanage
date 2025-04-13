@@ -12,7 +12,7 @@ const CrearPedido = () => {
 
     // Obtener proveedores desde la base
     useEffect(() => {
-        fetch('http://localhost/MakiManage/get_proveedores.php')
+        fetch('http://localhost/MakiManage/proveedores/get_proveedores.php')
             .then(res => res.json())
             .then(data => {
                 if (data.status === 'success') {
@@ -48,7 +48,7 @@ const CrearPedido = () => {
         }
 
         try {
-            const response = await fetch('http://localhost/MakiManage/crear_pedido.php', {
+            const response = await fetch('http://localhost/MakiManage/inventario/crear_pedido.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

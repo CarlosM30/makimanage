@@ -38,7 +38,7 @@ const Login = () => {
     e.preventDefault();
 
     // Realiza la solicitud al servidor
-    fetch('http://localhost/MakiManage/login.php', {
+    fetch('http://localhost/MakiManage/usuarios/login.php', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -40,7 +40,7 @@ const Register = () => {
     try {
 
       //Solicitud al servidor
-      const response = await fetch('http://localhost/MakiManage/register.php', {
+      const response = await fetch('http://localhost/MakiManage/usuarios/register.php', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

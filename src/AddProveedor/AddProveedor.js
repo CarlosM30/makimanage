@@ -19,7 +19,7 @@ const AddProveedor = () => {
         }
 
         try {
-            const response = await fetch('http://localhost/MakiManage/add_proveedor.php', {
+            const response = await fetch('http://localhost/MakiManage/proveedores/add_proveedor.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

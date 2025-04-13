@@ -1,133 +1,123 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
 import styles from './Inventory.module.css';
 
 const Inventory = () => {
-  const [inventory, setInventory] = useState([]);
-  const [errorMessage, setErrorMessage] = useState('');
-  const [updatedProduct, setUpdatedProduct] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState('');
-  const location = useLocation(); // <- para detectar regreso a esta página
+  const [categorias, setCategorias] = useState([]);
+  const [productos, setProductos] = useState([]);
+  const [selectedCategoryId, setSelectedCategoryId] = useState('');
+  const [selectedProductId, setSelectedProductId] = useState('');
+  const [nuevoProducto, setNuevoProducto] = useState('');
+  const [unidad, setUnidad] = useState('');
+  const [cantidad, setCantidad] = useState('');
+  const [fechaCaducidad, setFechaCaducidad] = useState('');
+  const [mensaje, setMensaje] = useState('');
 
+  // Cargar categorías
   useEffect(() => {
-    fetch('http://localhost/MakiManage/get_inventario.php', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      }
-    })
-      .then(response => response.json())
+    fetch('http://localhost/MakiManage/inventario/get_categorias.php')
+      .then(res => res.json())
       .then(data => {
-        if (data.status === 'success' && Array.isArray(data.productos)) {
-          setInventory(data.productos);
-        } else {
-          setErrorMessage(data.message || 'No se pudieron obtener los productos');
+        if (data.status === 'success') {
+          setCategorias(data.categorias);
         }
-      })
-      .catch(error => {
-        console.error('Error en la conexión:', error);
-        setErrorMessage('Error en la conexión con el servidor.');
       });
-  }, [location]); // <- se vuelve a ejecutar cuando cambia la ruta
+  }, []);
 
-  const categories = [...new Set(inventory.map(item => item.categoria))];
+  // Cargar productos existentes
+  useEffect(() => {
+    fetch('http://localhost/MakiManage/inventario/get_productos.php')
+      .then(res => res.json())
+      .then(data => {
+        if (data.status === 'success') {
+          setProductos(data.productos);
+        }
+      });
+  }, []);
 
-  const updateProductQuantity = (producto, cantidadRestar) => {
-    const newQuantity = producto.Cantidad - cantidadRestar;
-
-    if (newQuantity < 0) {
-      alert('No hay suficiente cantidad de este producto');
+  const handleGuardar = () => {
+    if (!selectedCategoryId || (!selectedProductId && !nuevoProducto) || !unidad || !cantidad) {
+      setMensaje('⚠️ Completa todos los campos requeridos.');
       return;
     }
 
-    fetch('http://localhost/MakiManage/update_inventario.php', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        categoria: producto.categoria,
-        producto: producto.Producto,
-        cantidad: cantidadRestar,
-      })
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log("Respuesta del servidor:", data);
+    const payload = {
+      nombre: selectedProductId === 'otro' ? nuevoProducto : productos.find(p => p.id === parseInt(selectedProductId)).nombre,
+      unidad,
+      cantidad: parseInt(cantidad),
+      fecha_caducidad: fechaCaducidad || null,
+      categoria_id: parseInt(selectedCategoryId),
+    };
 
-        if (data.status === 'success') {
-          setInventory(inventory.map(item =>
-            item.Producto === producto.Producto && item.categoria === producto.categoria
-              ? { ...item, Cantidad: newQuantity }
-              : item
-          ));
-          setUpdatedProduct(producto.Producto);
-        } else {
-          setErrorMessage(data.message || 'Error al actualizar el producto');
-        }
+    fetch('http://localhost/MakiManage/inventario/agregar_producto_o_stock.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+      .then(res => res.json())
+      .then(data => {
+        setMensaje(data.message || 'Guardado');
+        setUnidad('');
+        setCantidad('');
+        setFechaCaducidad('');
+        setNuevoProducto('');
+        setSelectedProductId('');
       })
-      .catch(error => {
-        console.error('Error al actualizar:', error);
-        setErrorMessage('Error al actualizar la cantidad del producto');
+      .catch(err => {
+        console.error(err);
+        setMensaje('❌ Error al guardar.');
       });
   };
 
-  const filteredProducts = inventory.filter(item => item.categoria === selectedCategory);
-  const categoryHasExpiryDate = selectedCategory &&
-    filteredProducts.some(item => item.Fecha_Caducidad !== null);
-
   return (
     <div className={styles.bodyContainer}>
-      <h2 className={styles.title}>Inventario</h2>
+      <h2 className={styles.title}>Agregar Producto o Stock</h2>
 
-      <label htmlFor="categorySelect">Selecciona una categoría:</label>
-      <select
-        id="categorySelect"
-        onChange={(e) => setSelectedCategory(e.target.value)}
-        value={selectedCategory}
-      >
-        <option value="">-- Seleccionar --</option>
-        {categories.map((categoria, index) => (
-          <option key={index} value={categoria}>{categoria}</option>
-        ))}
-      </select>
+      <div className={styles.inputContainer}>
+        <label>Categoría:</label>
+        <select value={selectedCategoryId} onChange={e => setSelectedCategoryId(e.target.value)}>
+          <option value="">-- Seleccionar --</option>
+          {categorias.map(cat => (
+            <option key={cat.id} value={cat.id}>{cat.nombre}</option>
+          ))}
+        </select>
+      </div>
 
-      {selectedCategory && (
-        <div className={styles.inventoryContainer}>
-          <h3>{selectedCategory}</h3>
-          <table className={styles.inventoryTable}>
-            <thead>
-              <tr>
-                <th>Producto</th>
-                <th>Unidad</th>
-                <th>Cantidad</th>
-                {categoryHasExpiryDate && <th>Fecha de Caducidad</th>}
-                <th>Acción</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredProducts.map((item, i) => (
-                <tr key={i}>
-                  <td>{item.Producto}</td>
-                  <td>{item.Unidad}</td>
-                  <td>{item.Cantidad}</td>
-                  {categoryHasExpiryDate && (
-                    <td>{item.Fecha_Caducidad || 'N/A'}</td>
-                  )}
-                  <td>
-                    <button onClick={() => updateProductQuantity(item, 1)}>
-                      Usar 1
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+      <div className={styles.inputContainer}>
+        <label>Producto:</label>
+        <select value={selectedProductId} onChange={e => setSelectedProductId(e.target.value)}>
+          <option value="">-- Seleccionar --</option>
+          {productos.map(prod => (
+            <option key={prod.id} value={prod.id}>{prod.nombre}</option>
+          ))}
+          <option value="otro">Otro...</option>
+        </select>
+      </div>
+
+      {selectedProductId === 'otro' && (
+        <div className={styles.inputContainer}>
+          <label>Nuevo Producto:</label>
+          <input type="text" value={nuevoProducto} onChange={e => setNuevoProducto(e.target.value)} />
         </div>
       )}
 
-      {errorMessage && <p className={styles.message}>{errorMessage}</p>}
-      {updatedProduct && <p>Producto actualizado: {updatedProduct}</p>}
+      <div className={styles.inputContainer}>
+        <label>Unidad:</label>
+        <input type="text" value={unidad} onChange={e => setUnidad(e.target.value)} />
+      </div>
+
+      <div className={styles.inputContainer}>
+        <label>Cantidad:</label>
+        <input type="number" value={cantidad} onChange={e => setCantidad(e.target.value)} />
+      </div>
+
+      <div className={styles.inputContainer}>
+        <label>Fecha de caducidad (opcional):</label>
+        <input type="date" value={fechaCaducidad} onChange={e => setFechaCaducidad(e.target.value)} />
+      </div>
+
+      <button onClick={handleGuardar} className={styles.btnGuardar}>Guardar</button>
+
+      {mensaje && <p className={styles.message}>{mensaje}</p>}
     </div>
   );
 };

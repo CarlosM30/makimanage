@@ -1,26 +1,26 @@
 import React, { useState } from 'react';
-import styles from './AddTable.module.css';
+import styles from './AddCategoria.module.css';
 
-const AddTable = () => {
+const AddCategoria = () => {
     const [nombre, setNombre] = useState('');
-    const [conFecha, setConFecha] = useState(false);
+    const [descripcion, setDescripcion] = useState('');
     const [message, setMessage] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (!nombre.trim()) {
-            setMessage('El nombre de la tabla es obligatorio.');
+            setMessage('El nombre de la categoría es obligatorio.');
             return;
         }
 
         try {
-            const response = await fetch('http://localhost/MakiManage/create_table.php', {
+            const response = await fetch('http://localhost/MakiManage/inventario/agregar_categoria.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ nombre, con_fecha: conFecha })
+                body: JSON.stringify({ nombre, descripcion })
             });
 
             const data = await response.json();
@@ -28,7 +28,7 @@ const AddTable = () => {
 
             if (data.status === 'success') {
                 setNombre('');
-                setConFecha(false);
+                setDescripcion('');
             }
         } catch (error) {
             console.error(error);
@@ -42,7 +42,7 @@ const AddTable = () => {
                 <h2 className={styles.title}>Nueva Categoría</h2>
                 <form className={styles.form} onSubmit={handleSubmit}>
                     <div className={styles.inputContainer}>
-                        <label className={styles.label}>Nombre de la Tabla:</label>
+                        <label className={styles.label}>Nombre de la Categoría:</label>
                         <input
                             className={styles.input}
                             type="text"
@@ -54,18 +54,18 @@ const AddTable = () => {
                     </div>
 
                     <div className={styles.inputContainer}>
-                        <label className={styles.label}>
-                            <input
-                                type="checkbox"
-                                checked={conFecha}
-                                onChange={() => setConFecha(!conFecha)}
-                            />
-                            ¿Agregar campo de fecha de caducidad?
-                        </label>
+                        <label className={styles.label}>Descripción:</label>
+                        <textarea
+                            className={styles.input}
+                            value={descripcion}
+                            onChange={(e) => setDescripcion(e.target.value)}
+                            placeholder="Ej. Productos de postres"
+                            required
+                        />
                     </div>
 
                     <button className={styles.button} type="submit">
-                        Crear Tabla
+                        Crear Categoría
                     </button>
                 </form>
                 {message && <p className={styles.message}>{message}</p>}
@@ -74,4 +74,4 @@ const AddTable = () => {
     );
 };
 
-export default AddTable;
+export default AddCategoria;

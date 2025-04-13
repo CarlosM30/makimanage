@@ -13,7 +13,7 @@ const GerenteS = () => {
                 <button className={styles.loginBtn} onClick={() => navigate('/inventory')}>INVENTARIO</button>
                 <button className={styles.registerBtn} onClick={() => navigate('/addproduct')}>PEDIDO</button>
                 <button className={styles.registerBtn} onClick={() => navigate('/manualinv')}>AJUSTE INVENTARIO</button>
-                <button className={styles.registerBtn} onClick={() => navigate('/addtable')}>AGREGAR CATEGORIA</button>
+                <button className={styles.registerBtn} onClick={() => navigate('/addcategoria')}>AGREGAR CATEGORIA</button>
                 <button className={styles.registerBtn} onClick={() => navigate('/addproveedor')}>AGREGAR PROVEEDOR</button>
                 <button className={styles.registerBtn} onClick={() => navigate('/crearpedido')}>Realizar PEDIDO</button>
             </div>
