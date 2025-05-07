@@ -48,6 +48,10 @@ const Login = () => {
       .then(response => response.json())
       .then(data => {
         if (data.status === 'success') {
+          if (data.Estado !== 'Activo') {
+            setErrorMessage('Tu cuenta está inactiva. Contacta al administrador.');
+            return; // Detiene la ejecución
+          }
           login(); // 👉 Establece sesión como autenticada en el contexto
 
           alert(`¡Bienvenido! Especialidad: ${data.Especialidad}, Estado: ${data.Estado}`);
@@ -60,7 +64,7 @@ const Login = () => {
           } else if (data.Especialidad === 'Gerente') {
             navigate('/gerentes', { replace: true });
           } else if (data.Especialidad === 'ADM') {
-            navigate('/usuarios', { replace: true });
+            navigate('/adm', { replace: true });
           } else {
             setErrorMessage('Rol no reconocido');
           }

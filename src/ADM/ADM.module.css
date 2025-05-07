@@ -1,0 +1,226 @@
+/* ADM.module.css */
+
+/* Estilos generales heredados del bodyContainer */
+.bodyContainer {
+    font-family: 'Arial', sans-serif;
+    background-image: url('../imagenes/FondoMKJ.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    color: #fff;
+}
+
+/* Contenedor principal del panel de administración */
+.adminContainer {
+    background: rgba(218, 216, 217, 0.7);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px 0;
+}
+
+/* Título del panel */
+.adminTitle {
+    color: #000;
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+/* Contenedor flexible para las dos columnas */
+.adminContent {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+/* Estilos para cada sección (lista y detalles) */
+.adminSection {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Títulos de sección */
+.sectionTitle {
+    color: #D92579;
+    margin-bottom: 15px;
+    font-size: 20px;
+    border-bottom: 2px solid #D92579;
+    padding-bottom: 5px;
+}
+
+/* Tabla de usuarios */
+.usersTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 15px;
+}
+
+.usersTable th, .usersTable td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    color: #333;
+}
+
+.usersTable th {
+    background-color: #D92579;
+    color: white;
+}
+
+.usersTable tr:hover {
+    background-color: #f5f5f5;
+    cursor: pointer;
+}
+
+.usersTable tr.selected {
+    background-color: #D92579;
+    color: white;
+}
+
+.usersTable tr.selected td {
+    color: white;
+}
+
+/* Detalles del usuario */
+.userDetails {
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.userDetails p {
+    margin: 8px 0;
+    font-size: 16px;
+}
+
+.userDetails strong {
+    color: #D92579;
+}
+
+/* Formulario de edición */
+.editForm {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.formGroup {
+    margin-bottom: 15px;
+}
+
+.formGroup label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+    font-weight: bold;
+}
+
+.formGroup input, .formGroup select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #333;
+}
+
+.formGroup input:focus, .formGroup select:focus {
+    border-color: #D92579;
+    outline: none;
+}
+
+/* Botones */
+.buttonGroup {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.buttonPrimary {
+    background-color: #D92579;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    flex: 1;
+}
+
+.buttonPrimary:hover {
+    background-color: #400C24;
+}
+
+.buttonSecondary {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    flex: 1;
+}
+
+.buttonSecondary:hover {
+    background-color: #555;
+}
+
+/* Botón de acción principal */
+.mainActionButton {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    color: white;
+    background-color: #D92579;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+.mainActionButton:hover {
+    background-color: #400C24;
+}
+
+/* Mensajes */
+.message {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.successMessage {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.errorMessage {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .adminContent {
+        flex-direction: column;
+    }
+    
+    .adminSection {
+        width: 100%;
+    }
+}

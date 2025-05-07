@@ -13,6 +13,7 @@ import AddProduct from './AddProduct/AddProduct';
 import AddCategoria from './AddCategoria/AddCategoria';
 import AddProveedor from './AddProveedor/AddProveedor';
 import CrearPedido from './CrearPedido/CrearPedido';
+import ADM from './ADM/ADM.js';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/adm" element={<ADM />}/>
           <Route path="/register" element={<Register />} />
           <Route path="/inventory" element={<ProtectedRoute> <Inventory /> </ProtectedRoute>}/>
           <Route path="/manualinv" element={<ProtectedRoute> <ManualInv /> </ProtectedRoute>}/>
@@ -30,6 +32,7 @@ function App() {
           <Route path="/addcategoria" element={<ProtectedRoute> <AddCategoria /> </ProtectedRoute>}/>
           <Route path="/addproveedor" element={<ProtectedRoute> <AddProveedor /> </ProtectedRoute>}/>
           <Route path="/crearpedido" element={<ProtectedRoute> <CrearPedido /> </ProtectedRoute>}/>
+          
           <Route path="*" element={<h2>Página no encontrada</h2>} />
         </Routes>
       </Router>
