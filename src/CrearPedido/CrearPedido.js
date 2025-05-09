@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './CrearPedido.module.css';
+import WhatsAppButton from '../WhatsAppButton';
+import LogoutButton from '../LogoutButton';
 
 /**
  * Componente para crear un pedido a un proveedor.
@@ -73,38 +75,45 @@ const CrearPedido = () => {
     /**
      * Función para enviar el pedido completo al servidor.
      */
-    const enviarPedido = async () => {
-        if (!proveedorSeleccionado || productosPedido.length === 0) {
-            setMessage('Selecciona un proveedor y agrega al menos un producto');
-            return;
+    // ... (código anterior permanece igual)
+
+const enviarPedido = async () => {
+    if (!proveedorSeleccionado || productosPedido.length === 0) {
+        setMessage('Selecciona un proveedor y agrega al menos un producto');
+        return;
+    }
+
+    try {
+        const response = await fetch('http://localhost/MakiManage/inventario/crear_pedido.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                proveedor_id: proveedorSeleccionado,
+                productos: productosPedido
+            })
+        });
+
+        const data = await response.json();
+        
+        if (!response.ok) {
+            throw new Error(data.message || 'Error al procesar la solicitud');
         }
 
-        try {
-            const response = await fetch('http://localhost/MakiManage/inventario/crear_pedido.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    proveedor_id: proveedorSeleccionado,
-                    productos: productosPedido
-                })
-            });
+        setMessage(data.message);
 
-            const data = await response.json();
-            setMessage(data.message);
-
-            if (data.status === 'success') {
-                // Reiniciar formulario después de un pedido exitoso
-                setProveedorSeleccionado('');
-                setProductosPedido([]);
-            }
-        } catch (error) {
-            console.error('Error al enviar el pedido:', error);
-            setMessage('Error al conectar con el servidor');
+        if (data.status === 'success') {
+            setProveedorSeleccionado('');
+            setProductosPedido([]);
         }
-    };
+    } catch (error) {
+        console.error('Error al enviar el pedido:', error);
+        setMessage(error.message || 'Error al conectar con el servidor');
+    }
+};
 
     return (
         <div className={styles.bodyContainer}>
+            <LogoutButton /> 
             <div className={styles.formContainer}>
                 <h2 className={styles.title}>Crear Pedido a Proveedor</h2>
 
@@ -165,6 +174,7 @@ const CrearPedido = () => {
                 {/* Mensaje de confirmación o error */}
                 {message && <p className={styles.message}>{message}</p>}
             </div>
+            <WhatsAppButton />
         </div>
     );
 };

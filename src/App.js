@@ -8,6 +8,7 @@ import Register from './Register/Register';
 import Inventory from './Inventory/Inventory';
 import ManualInv from './ManualInv/ManualInv';
 import GerenteS from './GerenteS';
+import EInventario from './EInventario.js';
 import Usuarios from './Usuarios';
 import AddProduct from './AddProduct/AddProduct';
 import AddCategoria from './AddCategoria/AddCategoria';
@@ -27,6 +28,7 @@ function App() {
           <Route path="/inventory" element={<ProtectedRoute> <Inventory /> </ProtectedRoute>}/>
           <Route path="/manualinv" element={<ProtectedRoute> <ManualInv /> </ProtectedRoute>}/>
           <Route path="/gerentes" element={<ProtectedRoute> <GerenteS /> </ProtectedRoute>}/>
+          <Route path="/einventario" element={<ProtectedRoute> <EInventario /> </ProtectedRoute>}/>
           <Route path="/usuarios" element={<ProtectedRoute> <Usuarios /> </ProtectedRoute>}/>
           <Route path="/addproduct" element={<ProtectedRoute> <AddProduct /> </ProtectedRoute>}/>
           <Route path="/addcategoria" element={<ProtectedRoute> <AddCategoria /> </ProtectedRoute>}/>

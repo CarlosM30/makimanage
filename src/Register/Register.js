@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import styles from './Register.module.css';
 import { useNavigate } from 'react-router-dom';
+import WhatsAppButton from '../WhatsAppButton';
+
 
 /**
  * Componente de Registro de un Usuario
@@ -133,6 +135,7 @@ const Register = () => {
           </form>
         </div>
       </div>
+      <WhatsAppButton />
     </div>
   );
 };

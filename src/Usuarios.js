@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Usuarios.module.css";
+import LogoutButton from './LogoutButton';
 
 const Usuarios = () => {
   const [users, setUsers] = useState([]);
@@ -28,6 +29,7 @@ const Usuarios = () => {
 
   return (
     <div className={styles.bodyContainer}>
+      <LogoutButton /> 
       <div className={styles.inventoryContainer}>
         <h2>Usuarios</h2>
         <table className={styles.inventoryTable}>

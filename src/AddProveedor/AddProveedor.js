@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import styles from './AddProveedor.module.css';
+import WhatsAppButton from '../WhatsAppButton';
+import LogoutButton from '../LogoutButton';
 
 /**
  * Componente para agregar una nuevo proveedor.
@@ -67,6 +69,7 @@ const AddProveedor = () => {
 
     return (
         <div className={styles.bodyContainer}>
+            <LogoutButton /> 
             <div className={styles.formContainer}>
                 <h2 className={styles.title}>Registrar Proveedor</h2>
 
@@ -116,6 +119,7 @@ const AddProveedor = () => {
                 {/* Mostrar mensaje al usuario */}
                 {message && <p className={styles.message}>{message}</p>}
             </div>
+            <WhatsAppButton />
         </div>
     );
 };

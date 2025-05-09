@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './AddProduct.module.css';
+import WhatsAppButton from '../WhatsAppButton';
+import LogoutButton from '../LogoutButton';
 
 /**
  * Componente para agregar un nuevo producto o aumentar el stock de uno existente.
@@ -117,6 +119,7 @@ const AddProduct = () => {
   
   return (
     <div className={styles.bodyContainer}>
+      <LogoutButton /> 
       <div className={styles.formContainer}>
         <h2 className={styles.title}>Agregar Producto o Stock</h2>
 
@@ -212,6 +215,7 @@ const AddProduct = () => {
         {/* Mensaje de error o éxito */}
         {message && <p className={styles.message}>{message}</p>}
       </div>
+      <WhatsAppButton />
     </div>
   );
 };

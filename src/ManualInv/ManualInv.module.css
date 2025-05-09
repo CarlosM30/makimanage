@@ -1,23 +1,23 @@
 .bodyContainer {
     font-family: 'Arial', sans-serif;
-    background-image: url('../imagenes/FondoMKJ.jpg'); 
+    background-image: url('../imagenes/FondoMKJ.jpg');
     background-size: cover;
     background-position: center;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     margin: 0;
+    padding: 20px;
 }
 
 .inventoryContainer {
-    background: rgba(218, 216, 217, 0.7);
-    padding: 40px;
+    background: rgba(218, 216, 217, 0.85);
+    padding: 30px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
     width: 100%;
-    max-width: 400px;
-    text-align: center;
+    max-width: 900px;
     color: #000;
 }
 
@@ -25,6 +25,7 @@
     font-size: 26px;
     color: #000;
     margin-bottom: 30px;
+    text-align: center;
 }
 
 .inputContainer {
@@ -37,48 +38,33 @@
     font-size: 14px;
     color: #000;
     margin-bottom: 5px;
+    font-weight: bold;
 }
 
-.inputContainer input {
-    width: 90%;
-    padding: 12px;
-    font-size: 16px;
-    border: none;
-    border-radius: 4px;
-    outline: none;
-    background-color: #333;
-    color: #fff;
-}
-
+.inputContainer input,
 .inputContainer select {
-    width: 95%;
+    width: 100%;
     padding: 12px;
     font-size: 16px;
-    border: none;
+    border: 1px solid #333;
     border-radius: 4px;
     outline: none;
-    background-color: #333;
-    color: #fff;
-}
-
-.inputContainer input:focus,
-.inputContainer select:focus {
-    border: 2px solid #262523;
+    background-color: #fff;
+    color: #333;
 }
 
 .inputContainer select {
     appearance: none;
     cursor: pointer;
-    background-color: #444;
-    color: #fff;
-    border: 1px solid #262523;
+    background-color: #fff;
+    color: #333;
     padding: 12px;
     font-size: 16px;
     border-radius: 4px;
 }
 
 .inputContainer select:hover {
-    background-color: #555;
+    background-color: #f5f5f5;
 }
 
 button {
@@ -98,8 +84,83 @@ button:hover {
     background-color: #400C24;
 }
 
-.message {
+button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+.loading {
+    text-align: center;
+    color: #D92579;
+    font-weight: bold;
+}
+
+.errorMessage {
+    color: #ff0000;
+    background-color: #ffe6e6;
+    padding: 10px;
+    border-radius: 4px;
+    margin: 10px 0;
+    text-align: center;
+}
+
+.successMessage {
+    color: #008000;
+    background-color: #e6ffe6;
+    padding: 10px;
+    border-radius: 4px;
+    margin: 10px 0;
+    text-align: center;
+}
+
+.currentInventory {
+    margin-top: 30px;
+}
+
+.currentInventory h3 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.inventoryTable {
+    width: 100%;
+    border-collapse: collapse;
     margin-top: 20px;
-    color: #ff6666;
-    font-size: 16px;
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #333;
+}
+
+.inventoryTable th, .inventoryTable td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.inventoryTable th {
+    background-color: #D92579;
+    color: white;
+    font-weight: normal;
+}
+
+.inventoryTable tr:nth-child(even) {
+    background-color: rgba(218, 216, 217, 0.5);
+}
+
+.inventoryTable tr:hover {
+    background-color: rgba(218, 216, 217, 0.8);
+}
+
+@media (max-width: 768px) {
+    .inventoryContainer {
+        padding: 20px;
+    }
+    
+    .inventoryTable {
+        font-size: 14px;
+    }
+    
+    .inventoryTable th, .inventoryTable td {
+        padding: 8px;
+    }
 }

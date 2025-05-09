@@ -1,0 +1,35 @@
+/* LogoutButton.module.css */
+.logoutButtonContainer {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.logoutButton {
+    display: flex;
+    align-items: center;
+    background-color: #D92579;
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.logoutButton:hover {
+    background-color: #400C24;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.logoutIcon {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+}

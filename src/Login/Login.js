@@ -1,4 +1,5 @@
 import avatar from '../imagenes/Avatar.png';
+import WhatsAppButton from '../WhatsAppButton';
 import React, { useState } from 'react';
 import styles from './Login.module.css';
 import { useNavigate } from 'react-router-dom';
@@ -17,7 +18,7 @@ import { useAuth } from '../AuthContext';
 const Login = () => {
 
   const navigate = useNavigate();
-  const { login } = useAuth(); //Hook del contexto de autenticación
+  const { login } = useAuth();//Hook del contexto de autenticación
 
   // Estados del componente
   const [username, setUsername] = useState(''); // Almacena el nombre de usuario
@@ -60,7 +61,7 @@ const Login = () => {
           if (data.Especialidad === 'Chef') {
             navigate('/inventory', { replace: true });
           } else if (data.Especialidad === 'Encargado de Inventario') {
-            navigate('/gerentes', { replace: true });
+            navigate('/einventario', { replace: true });
           } else if (data.Especialidad === 'Gerente') {
             navigate('/gerentes', { replace: true });
           } else if (data.Especialidad === 'ADM') {
@@ -140,9 +141,12 @@ const Login = () => {
             {errorMessage && <p className={styles.message}>{errorMessage}</p>}
           </form>
         </div>
+            <WhatsAppButton pageName="el inicio de sesión"/>
       </div>
     </div>
+    
   );
+  
 };
 
 export default Login;

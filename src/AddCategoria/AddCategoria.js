@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import styles from './AddCategoria.module.css';
+import WhatsAppButton from '../WhatsAppButton';
+import LogoutButton from '../LogoutButton';
 
 /**
  * Componente para agregar una nueva categoría de productos.
@@ -62,6 +64,7 @@ const AddCategoria = () => {
 
     return (
         <div className={styles.bodyContainer}>
+            <LogoutButton /> 
             <div className={styles.formContainer}>
                 <h2 className={styles.title}>Nueva Categoría</h2>
 
@@ -102,6 +105,7 @@ const AddCategoria = () => {
                 {/* Mensaje de respuesta (éxito o error) */}
                 {message && <p className={styles.message}>{message}</p>}
             </div>
+            <WhatsAppButton />
         </div>
     );
 };

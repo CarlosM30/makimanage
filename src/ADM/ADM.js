@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './ADM.module.css';
+import LogoutButton from '../LogoutButton';
 
 const ADM = () => {
     const navigate = useNavigate();
@@ -105,6 +106,7 @@ const ADM = () => {
 
     return (
         <div className={styles.bodyContainer}>
+            <LogoutButton /> 
             <div className={styles.inventoryContainer}>
                 <h1 className={styles.title}>Panel de Administración</h1>
 
