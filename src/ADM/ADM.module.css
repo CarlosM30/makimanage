@@ -66,7 +66,8 @@
     margin-bottom: 15px;
 }
 
-.usersTable th, .usersTable td {
+.usersTable th,
+.usersTable td {
     padding: 10px;
     text-align: left;
     border-bottom: 1px solid #ddd;
@@ -125,7 +126,8 @@
     font-weight: bold;
 }
 
-.formGroup input, .formGroup select {
+.formGroup input,
+.formGroup select {
     width: 100%;
     padding: 10px;
     border: 1px solid #ddd;
@@ -134,7 +136,8 @@
     color: #333;
 }
 
-.formGroup input:focus, .formGroup select:focus {
+.formGroup input:focus,
+.formGroup select:focus {
     border-color: #D92579;
     outline: none;
 }
@@ -219,8 +222,67 @@
     .adminContent {
         flex-direction: column;
     }
-    
+
     .adminSection {
         width: 100%;
+    }
+}
+
+/* Mejoras para el formulario de edición */
+.editFormContainer {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.editForm {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.formRow {
+    display: flex;
+    gap: 4px;
+    width: 100%;
+}
+
+.formRow > div {
+    flex: 1;
+    min-width: 0;
+}
+
+.inputContainer {
+    margin-bottom: 10px;
+}
+
+.inputContainer label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+    font-size: 14px;
+}
+
+.formInput {
+    width: 90%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 768px) {
+    .formRow {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .editFormContainer {
+        padding: 15px;
     }
 }

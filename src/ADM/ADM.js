@@ -107,14 +107,14 @@ const ADM = () => {
     return (
         <div className={styles.bodyContainer}>
             <LogoutButton /> 
-            <div className={styles.inventoryContainer}>
-                <h1 className={styles.title}>Panel de Administración</h1>
+            <div className={styles.adminContainer}>
+                <h1 className={styles.adminTitle}>Panel de Administración</h1>
 
-                <div style={{ display: 'flex', gap: '20px', marginTop: '20px' }}>
+                <div className={styles.adminContent}>
                     {/* Lista de usuarios */}
-                    <div style={{ flex: 1 }}>
-                        <h2>Usuarios Registrados</h2>
-                        <table className={styles.inventoryTable}>
+                    <div className={styles.adminSection}>
+                        <h2 className={styles.sectionTitle}>Usuarios Registrados</h2>
+                        <table className={styles.usersTable}>
                             <thead>
                                 <tr>
                                     <th>Usuario</th>
@@ -127,10 +127,7 @@ const ADM = () => {
                                     <tr
                                         key={user.id}
                                         onClick={() => handleSelectUser(user)}
-                                        style={{
-                                            cursor: 'pointer',
-                                            backgroundColor: selectedUser?.id === user.id ? '#D92579' : 'inherit'
-                                        }}
+                                        className={selectedUser?.id === user.id ? styles.selected : ''}
                                     >
                                         <td>{user.usuario}</td>
                                         <td>{user.especialidad}</td>
@@ -143,25 +140,26 @@ const ADM = () => {
 
                     {/* Detalles del usuario seleccionado */}
                     {selectedUser && (
-                        <div style={{ flex: 1, padding: '20px', background: 'rgba(0,0,0,0.2)', borderRadius: '10px' }}>
-                            <h2>Detalles del Usuario</h2>
-
+                        <div className={styles.adminSection}>
                             {!editMode ? (
                                 <>
-                                    <p><strong>Usuario:</strong> {selectedUser.usuario}</p>
-                                    <p><strong>Especialidad:</strong> {selectedUser.especialidad}</p>
-                                    <p><strong>Estado:</strong> {selectedUser.estado}</p>
-                                    <p><strong>Fecha de Registro:</strong> {new Date(selectedUser.fecha_registro).toLocaleString()}</p>
+                                    <h2 className={styles.sectionTitle}>Detalles del Usuario</h2>
+                                    <div className={styles.userDetails}>
+                                        <p><strong>Usuario:</strong> {selectedUser.usuario}</p>
+                                        <p><strong>Especialidad:</strong> {selectedUser.especialidad}</p>
+                                        <p><strong>Estado:</strong> {selectedUser.estado}</p>
+                                        <p><strong>Fecha de Registro:</strong> {new Date(selectedUser.fecha_registro).toLocaleString()}</p>
+                                    </div>
 
-                                    <div style={{ marginTop: '20px', display: 'flex', gap: '10px' }}>
+                                    <div className={styles.buttonGroup}>
                                         <button
-                                            className={styles.loginBtn}
+                                            className={styles.buttonPrimary}
                                             onClick={() => setEditMode(true)}
                                         >
                                             Editar
                                         </button>
                                         <button
-                                            className={styles.registerBtn}
+                                            className={styles.buttonSecondary}
                                             onClick={handleDeleteUser}
                                         >
                                             Eliminar
@@ -169,79 +167,91 @@ const ADM = () => {
                                     </div>
                                 </>
                             ) : (
-                                <>
-                                    <div className={styles.inputContainer}>
-                                        <label>Usuario</label>
-                                        <input
-                                            type="text"
-                                            name="usuario"
-                                            value={formData.usuario}
-                                            onChange={handleInputChange}
-                                            required
-                                        />
-                                    </div>
+                                <div className={styles.editFormContainer}>
+                                    <h2 className={styles.sectionTitle}>Editar Usuario</h2>
+                                    
+                                    <div className={styles.editForm}>
+                                        <div className={styles.formRow}>
+                                            <div className={styles.inputContainer}>
+                                                <label>Usuario</label>
+                                                <input
+                                                    type="text"
+                                                    name="usuario"
+                                                    value={formData.usuario}
+                                                    onChange={handleInputChange}
+                                                    required
+                                                    className={styles.formInput}
+                                                />
+                                            </div>
 
-                                    <div className={styles.inputContainer}>
-                                        <label>Contraseña (dejar en blanco para no cambiar)</label>
-                                        <input
-                                            type="password"
-                                            name="contrasena"
-                                            value={formData.contrasena}
-                                            onChange={handleInputChange}
-                                        />
-                                    </div>
+                                            <div className={styles.inputContainer}>
+                                                <label>Contraseña</label>
+                                                <input
+                                                    type="password"
+                                                    name="contrasena"
+                                                    value={formData.contrasena}
+                                                    onChange={handleInputChange}
+                                                    className={styles.formInput}
+                                                    placeholder="Dejar en blanco para no cambiar"
+                                                />
+                                            </div>
+                                        </div>
 
-                                    <div className={styles.inputContainer}>
-                                        <label>Especialidad</label>
-                                        <select
-                                            name="especialidad"
-                                            value={formData.especialidad}
-                                            onChange={handleInputChange}
-                                            required
-                                        >
-                                            <option value="Chef">Chef</option>
-                                            <option value="Encargado de Inventario">Encargado de Inventario</option>
-                                            <option value="Gerente">Gerente</option>
-                                            <option value="ADM">Administrador</option>
-                                        </select>
-                                    </div>
+                                        <div className={styles.formRow}>
+                                            <div className={styles.inputContainer}>
+                                                <label>Especialidad</label>
+                                                <select
+                                                    name="especialidad"
+                                                    value={formData.especialidad}
+                                                    onChange={handleInputChange}
+                                                    required
+                                                    className={styles.formInput}
+                                                >
+                                                    <option value="Chef">Chef</option>
+                                                    <option value="Encargado de Inventario">Encargado de Inventario</option>
+                                                    <option value="Gerente">Gerente</option>
+                                                    <option value="ADM">Administrador</option>
+                                                </select>
+                                            </div>
 
-                                    <div className={styles.inputContainer}>
-                                        <label>Estado</label>
-                                        <select
-                                            name="estado"
-                                            value={formData.estado}
-                                            onChange={handleInputChange}
-                                            required
-                                        >
-                                            <option value="Activo">Activo</option>
-                                            <option value="Inactivo">Inactivo</option>
-                                        </select>
-                                    </div>
+                                            <div className={styles.inputContainer}>
+                                                <label>Estado</label>
+                                                <select
+                                                    name="estado"
+                                                    value={formData.estado}
+                                                    onChange={handleInputChange}
+                                                    required
+                                                    className={styles.formInput}
+                                                >
+                                                    <option value="Activo">Activo</option>
+                                                    <option value="Inactivo">Inactivo</option>
+                                                </select>
+                                            </div>
+                                        </div>
 
-                                    <div style={{ marginTop: '20px', display: 'flex', gap: '10px' }}>
-                                        <button
-                                            className={styles.loginBtn}
-                                            onClick={handleUpdateUser}
-                                        >
-                                            Guardar
-                                        </button>
-                                        <button
-                                            className={styles.registerBtn}
-                                            onClick={() => setEditMode(false)}
-                                        >
-                                            Cancelar
-                                        </button>
+                                        <div className={styles.buttonGroup}>
+                                            <button
+                                                className={styles.buttonPrimary}
+                                                onClick={handleUpdateUser}
+                                            >
+                                                Guardar Cambios
+                                            </button>
+                                            <button
+                                                className={styles.buttonSecondary}
+                                                onClick={() => setEditMode(false)}
+                                            >
+                                                Cancelar
+                                            </button>
+                                        </div>
                                     </div>
-                                </>
+                                </div>
                             )}
                         </div>
                     )}
                 </div>
 
                 <button
-                    className={styles.registerBtn}
-                    style={{ marginTop: '20px' }}
+                    className={styles.mainActionButton}
                     onClick={() => navigate('/register')}
                 >
                     Registrar Nuevo Usuario

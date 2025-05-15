@@ -1,13 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styles from './CrearPedido.module.css';
 import WhatsAppButton from '../WhatsAppButton';
 import LogoutButton from '../LogoutButton';
+//import { useReactToPrint } from 'react-to-print';
+import PedidoTemplate from './PedidoTemplate';
+// eslint-disable-next-line
+import html2pdf from 'html2pdf.js';
 
 /**
  * Componente para crear un pedido a un proveedor.
  * 
  * Este formulario permite seleccionar un proveedor, añadir uno o más productos 
- * con sus respectivas unidades y cantidades, y enviar el pedido a la base de datos.
+ * con sus respectivas unidades y cantidades, enviar el pedido a la base de datos
+ * y generar un PDF con el detalle del pedido.
  * 
  * @component
  * @returns {JSX.Element} Formulario de creación de pedido.
@@ -34,6 +39,25 @@ const CrearPedido = () => {
     // Mensaje de estado para mostrar errores o confirmaciones
     const [message, setMessage] = useState('');
 
+    // Información de la empresa para el PDF
+    const [empresaInfo] = useState({
+        nombre: "MakiManage",
+        direccion: "Av. Constituyentes 120",
+        ciudad: "Queretaro, Queretaro",
+        telefono: "442 331 6515",
+        email: "mk.sushi.mx@gmail.com",
+        web: "http://www.mksushi.mx/"
+    });
+
+    // Referencia para el componente de impresión
+    const templateRef = useRef();
+
+    // Estado para controlar la visualización de la vista previa
+    const [showPreview, setShowPreview] = useState(false);
+
+    // Estado para almacenar los datos del pedido creado
+    const [pedidoCreado, setPedidoCreado] = useState(null);
+
     /**
      * useEffect que carga la lista de proveedores desde el backend al iniciar el componente.
      */
@@ -49,6 +73,33 @@ const CrearPedido = () => {
                 console.error('Error al cargar proveedores:', error);
             });
     }, []);
+
+    /**
+     * Configuración para la generación del PDF
+     */
+    const handleDownloadPDF = () => {
+    const element = templateRef.current;
+
+    if (!element) {
+        setMessage("No se pudo encontrar el contenido para exportar.");
+        return;
+    }
+
+    const opt = {
+        margin:       0.5,
+        filename:     `pedido_${pedidoCreado.id}.pdf`,
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2 },
+        jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+    };
+
+    html2pdf().set(opt).from(element).save()
+        .catch(err => {
+            console.error("Error al generar el PDF:", err);
+            setMessage("Hubo un problema al descargar el PDF.");
+        });
+};
+
 
     /**
      * Función para agregar un producto al pedido antes de enviarlo.
@@ -75,41 +126,53 @@ const CrearPedido = () => {
     /**
      * Función para enviar el pedido completo al servidor.
      */
-    // ... (código anterior permanece igual)
-
-const enviarPedido = async () => {
-    if (!proveedorSeleccionado || productosPedido.length === 0) {
-        setMessage('Selecciona un proveedor y agrega al menos un producto');
-        return;
-    }
-
-    try {
-        const response = await fetch('http://localhost/MakiManage/inventario/crear_pedido.php', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                proveedor_id: proveedorSeleccionado,
-                productos: productosPedido
-            })
-        });
-
-        const data = await response.json();
-        
-        if (!response.ok) {
-            throw new Error(data.message || 'Error al procesar la solicitud');
+    const enviarPedido = async () => {
+        if (!proveedorSeleccionado || productosPedido.length === 0) {
+            setMessage('Selecciona un proveedor y agrega al menos un producto');
+            return;
         }
 
-        setMessage(data.message);
+        try {
+            const response = await fetch('http://localhost/MakiManage/inventario/crear_pedido.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    proveedor_id: proveedorSeleccionado,
+                    productos: productosPedido
+                })
+            });
 
-        if (data.status === 'success') {
-            setProveedorSeleccionado('');
-            setProductosPedido([]);
+            const data = await response.json();
+            
+            if (!response.ok) {
+                throw new Error(data.message || 'Error al procesar la solicitud');
+            }
+
+            setMessage(data.message);
+
+            if (data.status === 'success') {
+                // Guardar los datos del pedido creado para el PDF
+                const proveedorData = proveedores.find(p => p.id === proveedorSeleccionado);
+                setPedidoCreado({
+                    id: data.pedido_id,
+                    fecha_pedido: new Date().toISOString(),
+                    estado: 'Pendiente',
+                    productos: productosPedido,
+                    proveedor: proveedorData
+                });
+                
+                // Limpiar el formulario
+                setProveedorSeleccionado('');
+                setProductosPedido([]);
+                
+                // Mostrar la vista previa del PDF
+                setShowPreview(true);
+            }
+        } catch (error) {
+            console.error('Error al enviar el pedido:', error);
+            setMessage(error.message || 'Error al conectar con el servidor');
         }
-    } catch (error) {
-        console.error('Error al enviar el pedido:', error);
-        setMessage(error.message || 'Error al conectar con el servidor');
-    }
-};
+    };
 
     return (
         <div className={styles.bodyContainer}>
@@ -175,6 +238,29 @@ const enviarPedido = async () => {
                 {message && <p className={styles.message}>{message}</p>}
             </div>
             <WhatsAppButton />
+
+            {/* Modal para vista previa del PDF */}
+            {showPreview && pedidoCreado && (
+                <div className={styles.modalOverlay}>
+                    <div className={styles.modalContent}>
+                        <h2>Vista Previa del Pedido</h2>
+                        
+                        <div className={styles.previewActions}>
+                            <button onClick={handleDownloadPDF}>Descargar PDF</button>
+                            <button onClick={() => setShowPreview(false)}>Cerrar</button>
+                        </div>
+                        
+                        <div className={styles.previewContainer}>
+                            <PedidoTemplate 
+                                ref={templateRef}
+                                pedido={pedidoCreado}
+                                proveedor={pedidoCreado.proveedor}
+                                empresaInfo={empresaInfo}
+                            />
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

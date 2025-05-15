@@ -1,0 +1,2 @@
+Extraer el archivo MakiBack en la ruta C:\xampp\htdocs
+El archivo tablas.txt son las tablas para la base de datos, la base de datos se llama maki

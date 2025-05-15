@@ -94,3 +94,54 @@ ul li {
     padding: 6px 10px;
     border-radius: 4px;
 }
+
+/* Agrega esto a tu CrearPedido.module.css */
+
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modalContent {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    width: 900px;
+}
+
+.previewActions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.previewActions button {
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.previewActions button:last-child {
+    background-color: #f44336;
+}
+
+.previewContainer {
+    border: 1px solid #ddd;
+    padding: 20px;
+    background-color: white;
+}

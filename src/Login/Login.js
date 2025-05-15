@@ -65,7 +65,7 @@ const Login = () => {
           } else if (data.Especialidad === 'Gerente') {
             navigate('/gerentes', { replace: true });
           } else if (data.Especialidad === 'ADM') {
-            navigate('/adm', { replace: true });
+            navigate('/admc', { replace: true });
           } else {
             setErrorMessage('Rol no reconocido');
           }
