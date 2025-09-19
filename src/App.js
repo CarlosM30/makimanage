@@ -2,24 +2,24 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { AuthProvider } from './AuthContext';
 import ProtectedRoute from './ProtectedRoute';
 
-import Home from './Home';
-import Login from './Login/Login';
-import Register from './Register/Register';
-import Inventory from './Inventory/Inventory';
-import ManualInv from './ManualInv/ManualInv';
-import GerenteS from './Pantallas/GerenteS';
-import EInventario from './Pantallas/EInventario.js';
-import Usuarios from './Usuarios';
-import AddProduct from './AddProduct/AddProduct';
-import AddCategoria from './AddCategoria/AddCategoria';
-import AddProveedor from './AddProveedor/AddProveedor';
-import CrearPedido from './CrearPedido/CrearPedido';
+import Home from './pages/Home/Home.js';
+import Login from './pages/Login/Login.js';
+import Register from './pages/Register/Register.js';
+import Inventory from './features/inventory/Inventory.js';
+import ManualInv from './features/manualinv/ManualInv.js';
+import Usuarios from './features/user/Usuarios.js';
+import AddProduct from './features/products/AddProduct.js';
+import AddCategoria from './features/categories/AddCategoria.js';
+import AddProveedor from './features/providers/AddProveedor.js';
+import CrearPedido from './features/order/CrearPedido.js';
+import PedidoTemplate from './features/order/PedidoTemplate.js';
 import ADM from './ADM/ADM.js';
-import Ginventario from './Pantallas/Ginventario.js';
-import Gproveedores from './Pantallas/Gproveedores.js';
-import GinventariosE from './Pantallas/GinventariosE.js';
-import ADMC from './Pantallas/ADMC.js';
-import PedidoTemplate from './CrearPedido/PedidoTemplate.js';
+import GerenteS from './pages/Pantallas/GerenteS.js';
+import EInventario from './pages/Pantallas/EInventario.js';
+import Ginventario from './pages/Pantallas/Ginventario.js';
+import Gproveedores from './pages/Pantallas/Gproveedores.js';
+import GinventariosE from './pages/Pantallas/GinventariosE.js';
+import ADMC from './pages/Pantallas/ADMC.js';
 
 function App() {
   return (

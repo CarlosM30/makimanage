@@ -1,0 +1,73 @@
+.bodyContainer {
+    font-family: 'Arial', sans-serif;
+    background-image: url('../../imagenes/FondoMKJ.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.inventoryContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: rgba(218, 216, 217, 0.2);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    color: #fff;
+    max-width: 90%;
+    overflow: hidden;
+}
+
+h2 {
+    color: #ffcc00;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.inventoryTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    table-layout: fixed;
+}
+
+.inventoryTable th, .inventoryTable td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #fff;
+    white-space: nowrap;
+}
+
+.inventoryTable th {
+    background-color: #333;
+}
+
+.inventoryTable tr:nth-child(even) {
+    background-color: #444;
+}
+
+
+.inventoryTable thead {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.inventoryTable tbody {
+    display: block;
+    max-height: 400px;
+    overflow-y: auto;
+    width: 100%;
+}
+
+.inventoryTable tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}

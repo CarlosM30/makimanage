@@ -1,0 +1,90 @@
+/* Estilos generales del contenedor principal de la página */
+.bodyContainer {
+    font-family: 'Arial';
+    background-image: url('../../imagenes/FondoMKJ.jpg');
+    background-size: cover;
+    background-position: center;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Contenedor principal modificado para los botones en fila */
+.homeContainer {
+    background: rgba(218, 216, 217, 0.7);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    width: auto; /* Cambiado a auto para que se ajuste al contenido */
+    max-width: 90%; /* Ajustado para mejor responsividad */
+    text-align: center;
+    color: #000;
+    transition: all 0.3s ease;
+    display: flex; /* Cambiado a flex para alinear en fila */
+    flex-direction: row; /* Elementos en fila */
+    flex-wrap: wrap; /* Permite que los elementos se ajusten en pantallas pequeñas */
+    justify-content: center; /* Centra los elementos */
+    gap: 30px; /* Espacio entre elementos */
+}
+
+/* Contenedor para cada botón con su imagen */
+.menuOption {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 150px;
+    transition: all 0.3s ease;
+}
+
+/* Estilo para las imágenes sobre los botones */
+.menuOption img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid #D9115A;
+    margin-bottom: 15px;
+    object-fit: cover;
+}
+
+/* Estilos para los botones */
+.menuOption .loginBtn,
+.menuOption .registerBtn {
+    background-color: #D92579;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background 0.3s;
+    width: 100%;
+}
+
+/* Efecto al pasar el mouse sobre las opciones */
+.menuOption:hover {
+    transform: scale(1.05);
+}
+
+.menuOption .loginBtn:hover,
+.menuOption .registerBtn:hover {
+    background-color: #400C24;
+}
+
+/* Estilos para el título principal y subtítulo */
+.title {
+    font-size: 48px;
+    font-family: 'Brush Script MT', cursive;
+    margin: 0;
+    width: 100%; /* Ocupa todo el ancho para centrarlo sobre los botones */
+}
+
+.subtitle {
+    font-size: 24px;
+    margin: 5px 0 30px;
+    font-family: 'Courier New', monospace;
+    color: #000;
+    width: 100%; /* Ocupa todo el ancho */
+}

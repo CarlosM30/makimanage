@@ -1,8 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './ADM.module.css';
-import LogoutButton from '../LogoutButton';
+import LogoutButton from "../components/Buttons/LogoutButton";
 
+/**
+ * Componente para administrar a los usuarios.
+ * 
+ * Este componente permite a los administradores modificar un usuario
+ * darlo de baja, cambiar contraseña
+ * 
+ * @component
+ * @returns {JSX.Element}
+ */
 const ADM = () => {
     const navigate = useNavigate();
     const [users, setUsers] = useState([]);
