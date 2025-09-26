@@ -141,7 +141,7 @@ const Login = () => {
             {errorMessage && <p className={styles.message}>{errorMessage}</p>}
           </form>
         </div>
-            <WhatsAppButton pageName="el inicio de sesión"/>
+            {/*<WhatsAppButton pageName="el inicio de sesión"/>*/}
       </div>
     </div>
     

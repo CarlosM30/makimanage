@@ -1,7 +1,7 @@
 /* Estilos generales del contenedor principal de la página */
 .bodyContainer {
     font-family: 'Arial'; /* Fuente utilizada en la página */
-    background-image: url('../../imagenes/FondoMKJ.jpg'); /* Imagen de fondo */
+    background-image: url('../../imagenes/FondoMK.PNG'); /* Imagen de fondo */
     background-size: cover; /* Ajusta la imagen para cubrir todo el fondo */
     background-position: center; /* Centra la imagen de fondo */
     margin: 0;
@@ -26,11 +26,13 @@
 }
 
 /* Efecto al pasar el mouse sobre el contenedor */
+/**
 .homeContainer:hover {
-    transform: scale(1.25); /* Aumenta el tamaño en un 25% */
-    background: rgba(218, 216, 217, 0.9); /* Aumenta la opacidad del fondo */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Sombra más pronunciada */
+    transform: scale(1.25); /* Aumenta el tamaño en un 25% 
+    background: rgba(218, 216, 217, 0.9); /* Aumenta la opacidad del fondo 
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Sombra más pronunciada 
 }
+*/
 
 /* Estilos para la imagen del avatar */
 .avatar img {

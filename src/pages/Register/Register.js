@@ -135,7 +135,6 @@ const Register = () => {
           </form>
         </div>
       </div>
-      <WhatsAppButton />
     </div>
   );
 };
